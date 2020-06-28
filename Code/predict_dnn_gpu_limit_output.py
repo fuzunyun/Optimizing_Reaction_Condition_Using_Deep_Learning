@@ -103,7 +103,7 @@ model.fit(x_train, y_train, epochs=500, verbose=1, callbacks=[earlyStopping])
 print(model.grid_scores_)
 print(model.best_params_)
 
-h5_modelfile = "/Result/Model/DNN_model_best.h5"
+h5_modelfile = "/Model/DNN_model_best.h5"
 
 model.best_estimator_.model.save(h5_modelfile)
 #del model
@@ -134,7 +134,7 @@ test_results = pd.DataFrame({
     'Observed Yield': y_test
 })
 test_results.to_csv(
-    '/Result/CSV/DNN_test_results.csv', index=False)
+    '/Result/DNN_test_results.csv', index=False)
 x_pred = model.predict(x_train)
 x_pred=x_pred.ravel()
 x_pred=x_pred.tolist()
@@ -144,7 +144,7 @@ train_results = pd.DataFrame({
     'Observed Yield': y_train
 })
 train_results.to_csv(
-    '/Result/CSV/DNN_train_results.csv', index=False)
+    '/Result/DNN_train_results.csv', index=False)
 
 
 external=pd.read_csv('/Data/Suzuki_Miyaura_external_scale.csv',sep=',')
@@ -159,23 +159,23 @@ external_results=pd.DataFrame({
     'Predicted Yield': external_pred,
     'Observed Yield': external_yield
 })
-external_results.to_csv('/Result/CSV/DNN_external_results.csv',index=False)
+external_results.to_csv('/Result/DNN_external_results.csv',index=False)
 
 
 scanning=pd.read_csv('/Data/Suzuki_Miyaura_scanning_scale.csv',sep=',')
 scanning_data=scanning.drop(['Scheme','catalyst'],axis=1)
 scanning_yield=model.predict(scanning_data)
 scanning['Predicted_Yield']=scanning_yield
-scanning.to_csv('/Result/CSV/DNN_scanning_results.csv',index=False)
+scanning.to_csv('/Result/DNN_scanning_results.csv',index=False)
 
 cross=pd.read_csv('/Data/Suzuki_Miyaura_cross_scale.csv',sep=',')
 cross_data=cross.drop(['experiment','catalyst'],axis=1)
 cross_yield=model.predict(cross_data)
 cross['Predicted_Yield']=cross_yield
-cross.to_csv('/Result/CSV/DNN_cross_results.csv',index=False)
+cross.to_csv('/Result/DNN_cross_results.csv',index=False)
 
 new=pd.read_csv('/Data/Suzuki_Miyaura_new_scale.csv',sep=',')
 new_data=new.drop(['Scheme','catalyst'],axis=1)
 new_yield=model.predict(new_data)
 new['Predicted_Yield']=new_yield
-new.to_csv('/Result/CSV/DNN_new_results.csv',index=False)
+new.to_csv('/Result/DNN_new_results.csv',index=False)
